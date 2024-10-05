@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+body {
+    background-color: #7C57B8; 
+    height: 100%;
+    margin: 0;
+}
+
+.linha {
+    width: 80%;       
+    height: 2px;      
+    background-color: rgb(128, 128, 128); 
+    margin: 5dvh auto;   
+
+}
+
+.divmae {
+    position: relative; 
+    .imgsev {
+        position: relative; 
+        img {
+            width: 100%;
+        }
+        h1 {
+            position: absolute; 
+            top: 28%;
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            font-size: 13dvh;
+            color: #fff;
+            text-align: center; 
+            font-family: "Karla", sans-serif;
+            font-weight: 100;
+        }
+    }
+    
+    .sevicos {
+        position: absolute; 
+        left: 50%; 
+        top: 380%;
+        transform: translate(-50%, -50%);   
+        width: 70%;
+        height: 200dvh;
+        margin: 0; 
+        background-color: rgba(255, 255, 255,); 
+        border-radius: 1dvh;    
+        .voltar{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2dvh;
+            margin-top: 3dvh;
+            margin-left: 4dvh;
+            img{
+                width: 7.5dvh;
+                height: 7.5dvh;
+                transition: transform 1s ease;
+            }
+            img:hover {
+                transform: scale(1.1); 
+            }
+            h1{
+                font-size: 5dvh;
+                font-family: "Hind Siliguri", sans-serif;
+                font-weight: 600;
+            }
+        }
+        
+    }
+
+}
