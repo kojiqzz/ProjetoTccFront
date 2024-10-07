@@ -36,7 +36,7 @@ export default function HomePage() {
             </div>
             <div className='vitin-do-capa'>
                 <div className='botao'>
-                    <h1>Cortes Modernos!</h1>
+                    <h1>CORTES MORDENOS!</h1>
                     <button>AGENDE JÁ</button>
                 </div>
                 <img className='img2' src={img1} alt="" />

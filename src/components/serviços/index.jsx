@@ -1,18 +1,14 @@
-import './index.scss'
-import { Link } from 'react-router-dom'
+import './index.scss';
 
-export default function Servico({trabalho,valor}){
-    const Linha = () => {
-        return <div className="linha"></div>;
-    };
-    return(
+export default function Servico({ trabalho, valor, onAgendar }) {
+    return (
         <div className='informacoes'>
             <div className='info'>
                 <h1 className='trabalho'>{trabalho}</h1>
                 <h1 className='valor'>R${valor}</h1>
-                <Link className='agenda'>AGENDAR</Link>
+                <button className='agenda' onClick={onAgendar}>AGENDAR</button>
             </div>
-                <Linha/>
+            <div className='linha'></div>
         </div>
-    )
+    );
 }

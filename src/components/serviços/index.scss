@@ -4,7 +4,7 @@
 .informacoes{
             
     .info{
-    gap: 20dvh;
+    gap: 17dvh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -14,10 +14,12 @@
         font-weight: 700;
         color: #5E1481;
         width: 34dvh;
+        font-size: 2.4dvh;
     }
     .valor{
         font-family: "Karla", sans-serif;
         font-weight: 700;
+        font-size: 2.4dvh;
     }
     .agenda{
         text-decoration: none;
@@ -25,17 +27,26 @@
         background-color: #7C57B8;
         font-family: "Roboto", sans-serif;
         font-weight: 400;
-        font-size: 4dvh;
-        width: 24dvh;
-        height: 6dvh;
+        font-size: 2.3dvh;
+        width: 20dvh;
+        height: 5dvh;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 1dvh;
         transition: transform 1s ease;
+        border: none;
     }
     .agenda:hover {
         transform: scale(1.1); 
     }
     }
+    .linha{
+        width: 90%;
+    }
+    
 }
+
+
+
+
