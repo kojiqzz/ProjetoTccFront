@@ -9,6 +9,7 @@ import { useState } from 'react';
 
 export default function Servicos() {
     const [isModalOpen, setModalOpen] = useState(false);
+    const [isAddServicoModalOpen, setAddServicoModalOpen] = useState(false);
     const [selectedServico, setSelectedServico] = useState(null);
     const [selectedHour, setSelectedHour] = useState(null); 
     const [startDayIndex, setStartDayIndex] = useState(0);
@@ -44,6 +45,14 @@ export default function Servicos() {
         setSelectedDayIndex(null);
         setSelectedPeriod(null);
         setHourOffset(0);
+    };
+
+    const openAddServicoModal = () => {
+        setAddServicoModalOpen(true);
+    };
+
+    const closeAddServicoModal = () => {
+        setAddServicoModalOpen(false);
     };
 
     const getHours = () => {
@@ -218,11 +227,11 @@ export default function Servicos() {
                                 </a>
                             </div>
                         </div>
+                        <div className='in'>
                         <div className='informacoes'>
                             <div className='detalhes'>
                                 <div className='E'>
                                     <p className='trabalho'>{selectedServico?.trabalho}</p>
-                                    
                                 </div>
                                 <div className='D'>
                                     <p className='valor'>R$ {selectedServico?.valor}</p>
@@ -232,13 +241,44 @@ export default function Servicos() {
                             <div className='separacao'></div>
                             <p className='remover'>remover serviço</p>
                         </div>
+                        </div>
                         <div className='adicionar-serviço'>
-                                    <p className='adicionar'>+ adicionar outro serviço</p>
-                            </div>
+                            <p className='adicionar' onClick={openAddServicoModal}>+ adicionar outro serviço</p>
+                        </div>
                         <div className='separacao'></div>
+                    </div>
+                </div>  
+            )}
+            
+            
+            {isAddServicoModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h1 className='h1'>Adicionar Novo Serviço</h1>
+                        <div className='linha2'></div>
+                        <p className='p'>Selecione um serviço:</p>
+                        {servicosList.map((item, index) => (
+                            <div className='adi-sev' key={index} onClick={() => handleAgendar(item.trabalho, item.valor)}>
+                                <div className='check'>
+                                    <input 
+                                        type='checkbox' 
+                                        checked={selectedServico?.trabalho === item.trabalho} 
+                                        onChange={() => setSelectedServico(item)} 
+                                    /> 
+                                    <p>{item.trabalho}</p>
+                                </div>
+                                <div className='valor'>
+                                    <p>{item.valor}</p>
+                                </div>
+                            </div>
+                        ))}
+                        <div className='b'>
+                        <button className="confirm-button" >Confirmar Seleção</button>
+                        </div>
+                        <img className='x' src={x} alt="Fechar" onClick={closeAddServicoModal} />
                     </div>
                 </div>
             )}
-        </div>
+        </div>  
     );
 }
