@@ -11,12 +11,13 @@ export default function Servicos() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isAddServicoModalOpen, setAddServicoModalOpen] = useState(false);
     const [selectedServico, setSelectedServico] = useState(null);
-    const [selectedHour, setSelectedHour] = useState(null); 
+    const [selectedHour, setSelectedHour] = useState(null);
     const [startDayIndex, setStartDayIndex] = useState(0);
     const [selectedDayIndex, setSelectedDayIndex] = useState(null);
     const [isAnimating, setIsAnimating] = useState(false);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
     const [hourOffset, setHourOffset] = useState(0);
+    const [selectedServices, setSelectedServices] = useState([]);
     const hoursPerSet = 6;
 
     const servicosList = [
@@ -45,6 +46,7 @@ export default function Servicos() {
         setSelectedDayIndex(null);
         setSelectedPeriod(null);
         setHourOffset(0);
+        setSelectedServices([]);
     };
 
     const openAddServicoModal = () => {
@@ -53,6 +55,20 @@ export default function Servicos() {
 
     const closeAddServicoModal = () => {
         setAddServicoModalOpen(false);
+    };
+
+    const handleConfirmSelection = () => {
+        const checkboxes = document.querySelectorAll('.adi-sev input[type="checkbox"]');
+        const newSelectedServices = [];
+
+        checkboxes.forEach((checkbox, index) => {
+            if (checkbox.checked) {
+                newSelectedServices.push(servicosList[index]);
+            }
+        });
+
+        setSelectedServices((prev) => [...prev, ...newSelectedServices]);
+        closeAddServicoModal();
     };
 
     const getHours = () => {
@@ -216,7 +232,7 @@ export default function Servicos() {
                                         <div
                                             key={index}
                                             className={`tem ${selectedHour === hour ? 'selected' : ''}`}
-                                            onClick={() => setSelectedHour(hour)} 
+                                            onClick={() => setSelectedHour(hour)}
                                         >
                                             <p>{hour}</p>
                                         </div>
@@ -228,29 +244,36 @@ export default function Servicos() {
                             </div>
                         </div>
                         <div className='in'>
-                        <div className='informacoes'>
-                            <div className='detalhes'>
-                                <div className='E'>
-                                    <p className='trabalho'>{selectedServico?.trabalho}</p>
+                            {selectedServices.map((servico, index) => (
+                                <div key={index} className='informacoes'>
+                                    <div className='detalhes'>
+                                        <div className='E'>
+                                            <p className='trabalho'>{servico.trabalho}</p>
+                                        </div>
+                                        <div className='D'>
+                                            <p className='valor'>R$ {servico.valor}</p>
+                                            {selectedHour && <p className='hora'>Horário: {selectedHour}</p>}
+                                        </div>
+                                    </div>
+                                    <div className='separacao'></div>
+                                    <p className='remover'>remover serviço</p>
                                 </div>
-                                <div className='D'>
-                                    <p className='valor'>R$ {selectedServico?.valor}</p>
-                                    {selectedHour && <p className='hora'>Horário: {selectedHour}</p>} 
-                                </div>
-                            </div>
-                            <div className='separacao'></div>
-                            <p className='remover'>remover serviço</p>
-                        </div>
+                            ))}
                         </div>
                         <div className='adicionar-serviço'>
                             <p className='adicionar' onClick={openAddServicoModal}>+ adicionar outro serviço</p>
                         </div>
                         <div className='separacao'></div>
+                        <div className='finalizar'>
+                            <div className='total'>
+                                <p className='p1'>Total :</p>
+                                <p className='p2'>R$ {selectedServico ? (parseFloat(selectedServico.valor.replace(',', '.')) + selectedServices.reduce((total, s) => total + parseFloat(s.valor.replace(',', '.')), 0)).toFixed(2) : '0,00'}</p>
+                            </div>
+                            <button>Agendar</button>
+                        </div>
                     </div>
-                </div>  
+                </div>
             )}
-            
-            
             {isAddServicoModalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
@@ -258,13 +281,9 @@ export default function Servicos() {
                         <div className='linha2'></div>
                         <p className='p'>Selecione um serviço:</p>
                         {servicosList.map((item, index) => (
-                            <div className='adi-sev' key={index} onClick={() => handleAgendar(item.trabalho, item.valor)}>
+                            <div className='adi-sev' key={index}>
                                 <div className='check'>
-                                    <input 
-                                        type='checkbox' 
-                                        checked={selectedServico?.trabalho === item.trabalho} 
-                                        onChange={() => setSelectedServico(item)} 
-                                    /> 
+                                    <input type='checkbox' />
                                     <p>{item.trabalho}</p>
                                 </div>
                                 <div className='valor'>
@@ -273,12 +292,12 @@ export default function Servicos() {
                             </div>
                         ))}
                         <div className='b'>
-                        <button className="confirm-button" >Confirmar Seleção</button>
+                            <button className="confirm-button" onClick={handleConfirmSelection}>Confirmar Seleção</button>
                         </div>
                         <img className='x' src={x} alt="Fechar" onClick={closeAddServicoModal} />
                     </div>
                 </div>
             )}
-        </div>  
+        </div>
     );
 }

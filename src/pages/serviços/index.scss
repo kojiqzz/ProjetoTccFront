@@ -85,7 +85,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-         
+        overflow: hidden;
         .modal-content {
             position: relative; 
             background: white;
@@ -93,7 +93,7 @@ body {
             height: 90%;
             border-radius: 8px;
             display: flex;
-            
+            overflow-y: auto;
             flex-direction: column;
         
             .x {
@@ -189,7 +189,7 @@ body {
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
-                    background-color: #e9e6e6;
+                    background-color: #f1f1f1;
                     height: 5dvh;
                     width: 34dvh;
                     padding-left: 1dvh;
@@ -202,13 +202,15 @@ body {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-
+                        opacity: 50%;
                         border-radius: 0.5dvh;
                         font-family: "Hind Siliguri", sans-serif;
-                        font-weight: 400;
+                        font-weight: 600;
                     }
                     .selected {
                         background-color: #fff; 
+                        color: #7C57B8;
+                        opacity: 100%;
                     }
                 }
                 .horas{
@@ -258,15 +260,16 @@ body {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                flex-direction: column;
             .informacoes {
-                background-color: #e9e6e6;
-                height: 18dvh;
+                background-color: #f1f1f1;
+                height: 16dvh;
                 width: 88%;
                 border-radius: 1.2dvh;
-                margin-top: 4dvh;
-                max-height: 200px; /* Ajuste a altura máxima conforme necessário */
-                overflow-y: auto; /* Adiciona rolagem vertical */
-                margin-bottom: 10px; /* Margem inferior para espaço com separação */
+                margin-top: 3dvh;
+                max-height: 200px; 
+                overflow-y: auto; 
+                margin-bottom: 10px; 
             
                 .detalhes {
                     display: flex; 
@@ -339,11 +342,51 @@ body {
                     }
             }
             .separacao{
-                width: 95%;
+                width: 100%;
                 height: 1px;
-                background-color: #383838;
-                opacity: 15%;     
+                background-color: #000000;
+                opacity: 30%;     
                 margin-top: 5dvh;     
+            }
+            .finalizar{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                margin-top: 3dvh;
+                .total{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 2dvh;
+                    align-items: center;
+                    
+                    .p1{
+                        font-size: 2dvh;
+                        font-family: "Hind Siliguri", sans-serif;
+                        font-weight: 300;
+                    }
+                    .p2{
+                        font-size: 4dvh;
+                        font-family: "Roboto", sans-serif;
+                        font-weight: 600;
+                    }
+                }
+                button{
+                    background-color: #5d1e99; 
+                    color: white; 
+                    height: 5dvh;
+                    width: 60%;
+                    border: none; 
+                    border-radius: 5px; 
+                    cursor: pointer; 
+                    font-size: 2dvh; 
+                    transition: transform 1s ease;
+                    margin-top: 2.7dvh;
+                    margin-bottom: 2.7dvh;
+                }       
+                button:hover {
+                    transform: scale(1.05);
+                    
+                }
             }
             
         }
