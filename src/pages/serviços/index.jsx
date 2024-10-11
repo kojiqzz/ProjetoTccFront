@@ -34,7 +34,11 @@ export default function Servicos() {
     ];
 
     const handleAgendar = (trabalho, valor) => {
-        setSelectedServico({ trabalho, valor });
+        const newServico = { trabalho, valor };
+        setSelectedServico(newServico);
+        if (!selectedServices.some(service => service.trabalho === trabalho && service.valor === valor)) {
+            setSelectedServices(prev => [...prev, newServico]);
+        }
         setModalOpen(true);
     };
 
@@ -46,7 +50,6 @@ export default function Servicos() {
         setSelectedDayIndex(null);
         setSelectedPeriod(null);
         setHourOffset(0);
-        setSelectedServices([]);
     };
 
     const openAddServicoModal = () => {
@@ -67,8 +70,12 @@ export default function Servicos() {
             }
         });
 
-        setSelectedServices((prev) => [...prev, ...newSelectedServices]);
+        setSelectedServices(prev => [...prev, ...newSelectedServices]);
         closeAddServicoModal();
+    };
+
+    const removeService = (servicoToRemove) => {
+        setSelectedServices(prev => prev.filter(servico => servico !== servicoToRemove));
     };
 
     const getHours = () => {
@@ -143,11 +150,11 @@ export default function Servicos() {
     };
 
     const handlePrevHours = () => {
-        setHourOffset((prev) => Math.max(prev - hoursPerSet, 0));
+        setHourOffset(prev => Math.max(prev - hoursPerSet, 0));
     };
 
     const handleNextHours = () => {
-        setHourOffset((prev) => {
+        setHourOffset(prev => {
             const newOffset = prev + hoursPerSet;
             return newOffset < getHours().length ? newOffset : prev;
         });
@@ -256,7 +263,7 @@ export default function Servicos() {
                                         </div>
                                     </div>
                                     <div className='separacao'></div>
-                                    <p className='remover'>remover serviço</p>
+                                    <p className='remover' onClick={() => removeService(servico)}>remover serviço</p>
                                 </div>
                             ))}
                         </div>
@@ -267,7 +274,7 @@ export default function Servicos() {
                         <div className='finalizar'>
                             <div className='total'>
                                 <p className='p1'>Total :</p>
-                                <p className='p2'>R$ {selectedServico ? (parseFloat(selectedServico.valor.replace(',', '.')) + selectedServices.reduce((total, s) => total + parseFloat(s.valor.replace(',', '.')), 0)).toFixed(2) : '0,00'}</p>
+                                <p className='p2'>R$ {selectedServices.reduce((total, s) => total + parseFloat(s.valor.replace(',', '.')), 0).toFixed(2)}</p>
                             </div>
                             <button>Agendar</button>
                         </div>

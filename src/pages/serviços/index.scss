@@ -150,7 +150,7 @@ body {
                     border: #cfcfcf solid 1px;
                     cursor: pointer; 
                     transition: background-color 0.3s; 
-                
+                    
                     &:hover {
                         background-color: #f0f0f0; 
                     }
@@ -206,6 +206,7 @@ body {
                         border-radius: 0.5dvh;
                         font-family: "Hind Siliguri", sans-serif;
                         font-weight: 600;
+                        cursor: pointer;
                     }
                     .selected {
                         background-color: #fff; 
@@ -219,6 +220,7 @@ body {
                     justify-content: center;
                     align-items: center;
                     margin-top: 4dvh;
+                    
                         img{
                             width: 4dvh;
                             height: 4dvh;
@@ -270,7 +272,7 @@ body {
                 max-height: 200px; 
                 overflow-y: auto; 
                 margin-bottom: 10px; 
-            
+         
                 .detalhes {
                     display: flex; 
                     flex-direction: row;
@@ -324,6 +326,10 @@ body {
                     margin: 2dvh ;
                     color: #d10303;
                     margin-top: 1dvh;
+                    cursor: pointer;
+                }
+                .remover:hover{
+                    text-decoration: underline;
                 }
                 
                 }
@@ -339,6 +345,11 @@ body {
                         color: #7C57B8;
                         font-size: 1.8dvh;
                         margin: 2dvh;
+                        cursor: pointer;                        
+                    }
+                     .adicionar:hover {
+                        color: #007BFF;
+                        text-decoration: underline; 
                     }
             }
             .separacao{
@@ -380,8 +391,8 @@ body {
                     cursor: pointer; 
                     font-size: 2dvh; 
                     transition: transform 1s ease;
-                    margin-top: 2.7dvh;
-                    margin-bottom: 2.7dvh;
+                    margin-top: 2.4dvh;
+                    margin-bottom: 6dvh;
                 }       
                 button:hover {
                     transform: scale(1.05);

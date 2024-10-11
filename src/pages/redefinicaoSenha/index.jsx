@@ -19,7 +19,7 @@ export default function RedefinicaoSenha(){
                     </div>    
  
                     <div className='botao'> 
-                        <Link to='/inicio' className='b2'>Enviar</Link>
+                        <Link className='b2'>Enviar</Link>
                     </div>
                 </div>
                 <div className='bem-vinda'>
