@@ -41,11 +41,11 @@
                     display: flex;
                     align-items: center;
                     position: relative;                   
-                    img {
-                        height: 3.3dvh;
-                        width: 3.3dvh;
-                        position: absolute; 
-                        left: 4.2px; 
+                    .img {
+                        height: 3.5dvh;
+                        width: 3.5dvh;
+                        position: absolute;
+                        left: 1dvh;
                         top: 50%; 
                         transform: translateY(-50%); 
                     }              
