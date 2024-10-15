@@ -7,7 +7,7 @@ import InputMask from 'react-input-mask';
 import olho from '../../assets/images/olho2.png';
 import olhofechado from '../../assets/images/olho.png';
 import exclamacao from '../../assets/images/exclamation.png';
-import check from '../../assets/images/check.png'
+import check from '../../assets/images/check.png';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -25,70 +25,76 @@ export default function RegisterPage() {
     const [mensagemSucesso, setMensagemSucesso] = useState('');
 
     async function verificarTelefone(numero) {
-        const apiKey = '46cfd2afb53f3f0e875e9c6cf7e463b4';
-        
-       
+        const apiKey = '46cfd2afb53f3f0e875e9c6cf7e463b4'; 
         const numeroComCodigo = numero.startsWith('+') ? numero : `+55${numero.replace(/\D/g, '')}`;
-    
         const url = `http://apilayer.net/api/validate?access_key=${apiKey}&number=${numeroComCodigo}`;
-    
+
         try {
             const response = await axios.get(url);
-            console.erro('Resposta da API:', response.data);
+            console.log('Resposta da API de telefone:', response.data);
             return response.data.valid; 
         } catch (error) {
             console.error('Erro ao verificar telefone:', error);
             return false;
         }
     }
-    
 
     async function verificarEmail(email) {
-        
         const url = `https://api.hunter.io/v2/email-verifier?email=${email}&api_key=5fae6172b8d6f7789a678d33f224a42667e52aaa`;
-        
+    
         try {
             const response = await axios.get(url);
-            return response.data.data.result === 'valid';
+            console.log('Resposta da API de email:', response.data);
+            
+            
+            return response.data.data.status === "valid"; 
         } catch (error) {
-            console.error('Erro ao verificar e-mail:', error);
+            console.error('Erro ao verificar email:', error);
             return false;
         }
     }
-
+    
+    
+    
     async function cadastrar() {
         if (senha !== confirmSenha) {
             setMensagemErroSenha('As senhas não coincidem!');
             return;
         }
-
+    
         const telefoneValido = await verificarTelefone(telefone);
         const emailValido = await verificarEmail(email);
-
+    
         if (!telefoneValido) {
             setMensagemErro('Número de telefone inválido. Verifique e tente novamente.');
             return;
         }
-
+    
         if (!emailValido) {
-            setMensagemErro('E-mail não está registrado. Verifique e tente novamente.');
+            setMensagemErro('E-mail não é válido. Verifique e tente novamente.');
             return;
         }
-
+    
         setMensagemErro('');
-
+    
         let userData = {
             "nome": nome,
             "telefone": telefone,
             "email": email,
             "senha": senha,
         };
-
+    
         const url = `http://localhost:5001/cadastro`;
-        let resp = await axios.post(url, userData);
-        setMensagemSucesso('Cadastro concluído. Id: ' + resp.data.novoId);
-        setModalAberto(true); 
+        try {
+            let resp = await axios.post(url, userData);
+            setMensagemSucesso('Cadastro concluído. Id: ' + resp.data.novoId);
+            setModalAberto(true);
+        } catch (error) {
+            console.error('Erro ao cadastrar usuário:', error);
+            setMensagemErro('Erro ao realizar cadastro. Tente novamente.');
+        }
     }
+    
 
     const limparMensagemErro = () => {
         setMensagemErro('');
@@ -96,10 +102,6 @@ export default function RegisterPage() {
 
     const fecharModal = () => {
         setModalAberto(false);
-    };
-
-    const abrirModal = () => {
-        setModalAberto(true);
     };
 
     return (
