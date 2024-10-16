@@ -84,18 +84,21 @@ export default function RegisterPage() {
             "senha": senha,
         };
     
-        const url = `http://localhost:5001/cadastro`;
+        const url = 'http://localhost:5001/cadastro';
         try {
             let resp = await axios.post(url, userData);
             setMensagemSucesso('Cadastro concluído. Id: ' + resp.data.novoId);
             setModalAberto(true);
         } catch (error) {
             console.error('Erro ao cadastrar usuário:', error);
-            setMensagemErro('Erro ao realizar cadastro. Tente novamente.');
+            if (error.response && error.response.data.erro) {
+                setMensagemErro(`Email ou telefone já cadastrados.`); 
+            } else {
+                setMensagemErro('Erro ao realizar cadastro. Tente novamente.');
+            }
         }
     }
     
-
     const limparMensagemErro = () => {
         setMensagemErro('');
     };
@@ -117,7 +120,7 @@ export default function RegisterPage() {
                                 placeholder='Nome de usuario'
                                 value={nome}
                                 onChange={e => setNome(e.target.value)}
-                                onFocus={limparMensagemErro}
+                                onClick={limparMensagemErro}
                             />
                         </div>
                         <div className='in2'>
@@ -127,7 +130,7 @@ export default function RegisterPage() {
                                 placeholder='Telefone' 
                                 value={telefone}
                                 onChange={e => setTelefone(e.target.value)}
-                                onFocus={limparMensagemErro}
+                                onClick={limparMensagemErro}
                             >
                                 {(inputProps) => <input {...inputProps} />} 
                             </InputMask>
@@ -139,7 +142,7 @@ export default function RegisterPage() {
                                 placeholder='E-mail'
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
-                                onFocus={limparMensagemErro}
+                                onClick={limparMensagemErro}
                             />
                         </div>
                         
@@ -150,7 +153,7 @@ export default function RegisterPage() {
                                 placeholder='senha' 
                                 value={senha}
                                 onChange={e => setSenha(e.target.value)}
-                                onFocus={limparMensagemErro}
+                                onClick={limparMensagemErro}
                             />
                             <img 
                                 className='password' 
@@ -166,7 +169,7 @@ export default function RegisterPage() {
                                 placeholder='confirmar senha'
                                 value={confirmSenha}
                                 onChange={e => setConfirmSenha(e.target.value)}
-                                onFocus={limparMensagemErro}
+                                onClick={limparMensagemErro}
                             />
                             <img 
                                 className='password' 

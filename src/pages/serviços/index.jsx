@@ -8,17 +8,17 @@ import Servico from '../../components/serviços';
 import { useState } from 'react';
 
 export default function Servicos() {
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [isAddServicoModalOpen, setAddServicoModalOpen] = useState(false);
-    const [selectedServico, setSelectedServico] = useState(null);
-    const [selectedHour, setSelectedHour] = useState(null);
-    const [startDayIndex, setStartDayIndex] = useState(0);
-    const [selectedDayIndex, setSelectedDayIndex] = useState(null);
-    const [isAnimating, setIsAnimating] = useState(false);
-    const [selectedPeriod, setSelectedPeriod] = useState(null);
-    const [hourOffset, setHourOffset] = useState(0);
-    const [selectedServices, setSelectedServices] = useState([]);
-    const hoursPerSet = 6;
+    const [modalAberto, setModalAberto] = useState(false);
+    const [modalAdicionarServicoAberto, setModalAdicionarServicoAberto] = useState(false);
+    const [servicoSelecionado, setServicoSelecionado] = useState(null);
+    const [horaSelecionada, setHoraSelecionada] = useState(null);
+    const [indiceInicioDia, setIndiceInicioDia] = useState(0);
+    const [indiceDiaSelecionado, setIndiceDiaSelecionado] = useState(null);
+    const [animando, setAnimando] = useState(false);
+    const [periodoSelecionado, setPeriodoSelecionado] = useState(null);
+    const [offsetHora, setOffsetHora] = useState(0);
+    const [servicosSelecionados, setServicosSelecionados] = useState([]);
+    const horasPorConjunto = 6;
 
     const servicosList = [
         { 'trabalho': 'Escova e Prancha', 'valor': '30,00' },
@@ -33,130 +33,130 @@ export default function Servicos() {
         { 'trabalho': 'massagem relaxante corporal', 'valor': '100,00' },
     ];
 
-    const handleAgendar = (trabalho, valor) => {
-        const newServico = { trabalho, valor };
-        setSelectedServico(newServico);
-        if (!selectedServices.some(service => service.trabalho === trabalho && service.valor === valor)) {
-            setSelectedServices(prev => [...prev, newServico]);
+    const agendar = (trabalho, valor) => {
+        const novoServico = { trabalho, valor };
+        setServicoSelecionado(novoServico);
+        if (!servicosSelecionados.some(service => service.trabalho === trabalho && service.valor === valor)) {
+            setServicosSelecionados(prev => [...prev, novoServico]);
         }
-        setModalOpen(true);
+        setModalAberto(true);
     };
 
-    const closeModal = () => {
-        setModalOpen(false);
-        setSelectedServico(null);
-        setSelectedHour(null);
-        setStartDayIndex(0);
-        setSelectedDayIndex(null);
-        setSelectedPeriod(null);
-        setHourOffset(0);
+    const fecharModal = () => {
+        setModalAberto(false);
+        setServicoSelecionado(null);
+        setHoraSelecionada(null);
+        setIndiceInicioDia(0);
+        setIndiceDiaSelecionado(null);
+        setPeriodoSelecionado(null);
+        setOffsetHora(0);
     };
 
-    const openAddServicoModal = () => {
-        setAddServicoModalOpen(true);
+    const abrirModalAdicionarServico = () => {
+        setModalAdicionarServicoAberto(true);
     };
 
-    const closeAddServicoModal = () => {
-        setAddServicoModalOpen(false);
+    const fecharModalAdicionarServico = () => {
+        setModalAdicionarServicoAberto(false);
     };
 
-    const handleConfirmSelection = () => {
+    const confirmarSelecao = () => {
         const checkboxes = document.querySelectorAll('.adi-sev input[type="checkbox"]');
-        const newSelectedServices = [];
+        const novosServicosSelecionados = [];
 
         checkboxes.forEach((checkbox, index) => {
             if (checkbox.checked) {
-                newSelectedServices.push(servicosList[index]);
+                novosServicosSelecionados.push(servicosList[index]);
             }
         });
 
-        setSelectedServices(prev => [...prev, ...newSelectedServices]);
-        closeAddServicoModal();
+        setServicosSelecionados(prev => [...prev, ...novosServicosSelecionados]);
+        fecharModalAdicionarServico();
     };
 
-    const removeService = (servicoToRemove) => {
-        setSelectedServices(prev => prev.filter(servico => servico !== servicoToRemove));
+    const removerServico = (servicoParaRemover) => {
+        setServicosSelecionados(prev => prev.filter(servico => servico !== servicoParaRemover));
     };
 
-    const getHours = () => {
-        const hours = [];
+    const obterHoras = () => {
+        const horas = [];
         for (let i = 9; i <= 19; i += 0.5) {
-            const hour = i % 1 === 0 ? `${i}:00` : `${i - 0.5}:30`;
-            hours.push(hour);
+            const hora = i % 1 === 0 ? `${i}:00` : `${i - 0.5}:30`;
+            horas.push(hora);
         }
-        return hours;
+        return horas;
     };
 
-    const getDays = () => {
-        const days = [];
-        const today = new Date();
+    const obterDias = () => {
+        const dias = [];
+        const hoje = new Date();
         for (let i = 0; i < 7; i++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() + (startDayIndex + i));
-            const dayName = date.toLocaleString('pt-BR', { weekday: 'short' });
-            const isDisabled = dayName === 'dom.' || dayName === 'seg.';
-            days.push({
-                day: dayName,
-                date: date.getDate(),
+            const data = new Date(hoje);
+            data.setDate(hoje.getDate() + (indiceInicioDia + i));
+            const nomeDia = data.toLocaleString('pt-BR', { weekday: 'short' });
+            const isDisabled = nomeDia === 'dom.' || nomeDia === 'seg.';
+            dias.push({
+                dia: nomeDia,
+                data: data.getDate(),
                 disabled: isDisabled
             });
         }
-        return days;
+        return dias;
     };
 
-    const getMonthYear = () => {
-        const today = new Date();
-        today.setDate(today.getDate() + startDayIndex);
-        return today.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+    const obterMesAno = () => {
+        const hoje = new Date();
+        hoje.setDate(hoje.getDate() + indiceInicioDia);
+        return hoje.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
     };
 
-    const handlePrevWeek = () => {
-        if (startDayIndex > 0) {
-            setIsAnimating(true);
+    const manejarSemanaAnterior = () => {
+        if (indiceInicioDia > 0) {
+            setAnimando(true);
             setTimeout(() => {
-                setStartDayIndex(startDayIndex - 7);
-                setIsAnimating(false);
+                setIndiceInicioDia(indiceInicioDia - 7);
+                setAnimando(false);
             }, 300);
         }
     };
 
-    const handleNextWeek = () => {
-        setIsAnimating(true);
+    const manejarProximaSemana = () => {
+        setAnimando(true);
         setTimeout(() => {
-            setStartDayIndex(startDayIndex + 7);
-            setIsAnimating(false);
+            setIndiceInicioDia(indiceInicioDia + 7);
+            setAnimando(false);
         }, 300);
     };
 
-    const handleDayClick = (index) => {
-        setSelectedDayIndex(index);
+    const manejarClickDia = (index) => {
+        setIndiceDiaSelecionado(index);
     };
 
-    const handlePeriodClick = (period) => {
-        setSelectedPeriod(period);
-        if (period === 'manha') {
-            setHourOffset(0);
-        } else if (period === 'tarde') {
-            setHourOffset(6);
-        } else if (period === 'noite') {
-            setHourOffset(16);
+    const manejarClickPeriodo = (periodo) => {
+        setPeriodoSelecionado(periodo);
+        if (periodo === 'manha') {
+            setOffsetHora(0);
+        } else if (periodo === 'tarde') {
+            setOffsetHora(6);
+        } else if (periodo === 'noite') {
+            setOffsetHora(16);
         }
     };
 
-    const getDisplayedHours = () => {
-        const hours = getHours();
-        const startIndex = hourOffset;
-        return hours.slice(startIndex, startIndex + hoursPerSet);
+    const obterHorasExibidas = () => {
+        const horas = obterHoras();
+        const startIndex = offsetHora;
+        return horas.slice(startIndex, startIndex + horasPorConjunto);
     };
 
-    const handlePrevHours = () => {
-        setHourOffset(prev => Math.max(prev - hoursPerSet, 0));
+    const manejarHorasAnteriores = () => {
+        setOffsetHora(prev => Math.max(prev - horasPorConjunto, 0));
     };
 
-    const handleNextHours = () => {
-        setHourOffset(prev => {
-            const newOffset = prev + hoursPerSet;
-            return newOffset < getHours().length ? newOffset : prev;
+    const manejarProximasHoras = () => {
+        setOffsetHora(prev => {
+            const novoOffset = prev + horasPorConjunto;
+            return novoOffset < obterHoras().length ? novoOffset : prev;
         });
     };
 
@@ -181,30 +181,30 @@ export default function Servicos() {
                         key={index}
                         trabalho={item.trabalho}
                         valor={item.valor}
-                        onAgendar={() => handleAgendar(item.trabalho, item.valor)}
+                        onAgendar={() => agendar(item.trabalho, item.valor)}
                     />
                 ))}
             </div>
-            {isModalOpen && (
+            {modalAberto && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <img className='x' src={x} alt="" onClick={closeModal} />
-                        <h1>{getMonthYear()}</h1>
-                        <div className={`dias ${isAnimating ? 'animating' : ''}`}>
-                            <a className='setaE' onClick={handlePrevWeek}>
+                        <img className='x' src={x} alt="" onClick={fecharModal} />
+                        <h1>{obterMesAno()}</h1>
+                        <div className={`dias ${animando ? 'animating' : ''}`}>
+                            <a className='setaE' onClick={manejarSemanaAnterior}>
                                 <img className='imgE' src={seta} alt="Seta para esquerda" />
                             </a>
-                            {getDays().map((dia, index) => (
+                            {obterDias().map((dia, index) => (
                                 <div
-                                    className={`dia ${selectedDayIndex === index ? 'selected' : ''} ${dia.disabled ? 'disabled' : ''}`}
+                                    className={`dia ${indiceDiaSelecionado === index ? 'selected' : ''} ${dia.disabled ? 'disabled' : ''}`}
                                     key={index}
-                                    onClick={() => !dia.disabled && handleDayClick(index)}
+                                    onClick={() => !dia.disabled && manejarClickDia(index)}
                                 >
-                                    <p className='d1'>{dia.day}</p>
-                                    <p className='d2'>{dia.date}</p>
+                                    <p className='d1'>{dia.dia}</p>
+                                    <p className='d2'>{dia.data}</p>
                                 </div>
                             ))}
-                            <a className='setaD' onClick={handleNextWeek}>
+                            <a className='setaD' onClick={manejarProximaSemana}>
                                 <img className='imgD' src={seta} alt="Seta para direita" style={{ transform: 'rotate(180deg)' }} />
                             </a>
                         </div>
@@ -212,46 +212,46 @@ export default function Servicos() {
                         <div className='horario-marcado'>
                             <div className='periodo'>
                                 <div
-                                    className={`dia ${selectedPeriod === 'manha' ? 'selected' : ''}`}
-                                    onClick={() => handlePeriodClick('manha')}
+                                    className={`dia ${periodoSelecionado === 'manha' ? 'selected' : ''}`}
+                                    onClick={() => manejarClickPeriodo('manha')}
                                 >
                                     <p>Manhã</p>
                                 </div>
                                 <div
-                                    className={`tarde ${selectedPeriod === 'tarde' ? 'selected' : ''}`}
-                                    onClick={() => handlePeriodClick('tarde')}
+                                    className={`tarde ${periodoSelecionado === 'tarde' ? 'selected' : ''}`}
+                                    onClick={() => manejarClickPeriodo('tarde')}
                                 >
                                     <p>Tarde</p>
                                 </div>
                                 <div
-                                    className={`noite ${selectedPeriod === 'noite' ? 'selected' : ''}`}
-                                    onClick={() => handlePeriodClick('noite')}
+                                    className={`noite ${periodoSelecionado === 'noite' ? 'selected' : ''}`}
+                                    onClick={() => manejarClickPeriodo('noite')}
                                 >
                                     <p>Noite</p>
                                 </div>
                             </div>
                             <div className='horas'>
-                                <a className='setaE' onClick={handlePrevHours}>
+                                <a className='setaE' onClick={manejarHorasAnteriores}>
                                     <img className='imgE' src={seta} alt="Seta para esquerda" />
                                 </a>
                                 <div className='tempo'>
-                                    {getDisplayedHours().map((hour, index) => (
+                                    {obterHorasExibidas().map((hora, index) => (
                                         <div
                                             key={index}
-                                            className={`tem ${selectedHour === hour ? 'selected' : ''}`}
-                                            onClick={() => setSelectedHour(hour)}
+                                            className={`tem ${horaSelecionada === hora ? 'selected' : ''}`}
+                                            onClick={() => setHoraSelecionada(hora)}
                                         >
-                                            <p>{hour}</p>
+                                            <p>{hora}</p>
                                         </div>
                                     ))}
                                 </div>
-                                <a className='setaD' onClick={handleNextHours}>
+                                <a className='setaD' onClick={manejarProximasHoras}>
                                     <img className='imgD' src={seta} alt="Seta para direita" style={{ transform: 'rotate(180deg)' }} />
                                 </a>
                             </div>
                         </div>
                         <div className='in'>
-                            {selectedServices.map((servico, index) => (
+                            {servicosSelecionados.map((servico, index) => (
                                 <div key={index} className='informacoes'>
                                     <div className='detalhes'>
                                         <div className='E'>
@@ -259,29 +259,29 @@ export default function Servicos() {
                                         </div>
                                         <div className='D'>
                                             <p className='valor'>R$ {servico.valor}</p>
-                                            {selectedHour && <p className='hora'>Horário: {selectedHour}</p>}
+                                            {horaSelecionada && <p className='hora'>Horário: {horaSelecionada}</p>}
                                         </div>
                                     </div>
                                     <div className='separacao'></div>
-                                    <p className='remover' onClick={() => removeService(servico)}>remover serviço</p>
+                                    <p className='remover' onClick={() => removerServico(servico)}>remover serviço</p>
                                 </div>
                             ))}
                         </div>
                         <div className='adicionar-serviço'>
-                            <p className='adicionar' onClick={openAddServicoModal}>+ adicionar outro serviço</p>
+                            <p className='adicionar' onClick={abrirModalAdicionarServico}>+ adicionar outro serviço</p>
                         </div>
                         <div className='separacao'></div>
                         <div className='finalizar'>
                             <div className='total'>
                                 <p className='p1'>Total :</p>
-                                <p className='p2'>R$ {selectedServices.reduce((total, s) => total + parseFloat(s.valor.replace(',', '.')), 0).toFixed(2)}</p>
+                                <p className='p2'>R$ {servicosSelecionados.reduce((total, s) => total + parseFloat(s.valor.replace(',', '.')), 0).toFixed(2)}</p>
                             </div>
                             <button>Agendar</button>
                         </div>
                     </div>
                 </div>
             )}
-            {isAddServicoModalOpen && (
+            {modalAdicionarServicoAberto && (
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <h1 className='h1'>Adicionar Novo Serviço</h1>
@@ -299,9 +299,9 @@ export default function Servicos() {
                             </div>
                         ))}
                         <div className='b'>
-                            <button className="confirm-button" onClick={handleConfirmSelection}>Confirmar Seleção</button>
+                            <button className="confirm-button" onClick={confirmarSelecao}>Confirmar Seleção</button>
                         </div>
-                        <img className='x' src={x} alt="Fechar" onClick={closeAddServicoModal} />
+                        <img className='x' src={x} alt="Fechar" onClick={fecharModalAdicionarServico} />
                     </div>
                 </div>
             )}
