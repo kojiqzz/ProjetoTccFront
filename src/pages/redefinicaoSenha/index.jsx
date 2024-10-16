@@ -1,31 +1,67 @@
-import './index.scss'
-import img2 from '../../assets/images/img2.png'
-import { Link } from 'react-router-dom'
-import email from '../../assets/images/email.webp'
+import React, { useState } from 'react';
+import './index.scss';
+import { Link } from 'react-router-dom';
+import emailIcon from '../../assets/images/email.webp';
+import axios from 'axios';
 
-export default function RedefinicaoSenha(){
-    return(
+export default function RedefinicaoSenha() {
+    const [emailInput, setEmailInput] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleEmailChange = (e) => {
+        setEmailInput(e.target.value);
+        setErrorMessage(''); 
+        setSuccessMessage(''); 
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const url = 'http://localhost:5001/verificar-email/';
+            const response = await axios.post(url, emailInput ); 
+
+            if (response.data.existe) {
+                setSuccessMessage('Email encontrado! Um link de redefinição foi enviado.');
+            } else {
+                setErrorMessage('Email não encontrado. Verifique e tente novamente.');
+            }
+        } catch (error) {
+            console.error(error); 
+            setErrorMessage('Ocorreu um erro ao verificar o email.');
+        }
+    };
+
+    return (
         <div className='div2'>
-
             <div className='login'>
                 <div className='informaçoes'>
-                    <h1>Redefinição de senha </h1>
-                    <p>Insira seu email para redefiniçao de senha </p>
-                    <div className='inp'>
-                        <div className='in1'>
-                            <img  src={email} alt="" />
-                            <input  type="text" placeholder='E-mail' />
+                    <h1>Redefinição de Senha</h1>
+                    <p>Insira seu email para redefinição de senha</p>
+                    <form onSubmit={handleSubmit}>
+                        <div className='inp'>
+                            <div className='in1'>
+                                <img src={emailIcon} alt="Ícone de Email" />
+                                <input
+                                    type="text"
+                                    placeholder='E-mail'
+                                    value={emailInput}
+                                    onChange={handleEmailChange}
+                                />
+                            </div>
                         </div>
-                    </div>    
- 
-                    <div className='botao'> 
-                        <Link className='b2'>Enviar</Link>
-                    </div>
+                        {errorMessage && <p className='error'>{errorMessage}</p>}
+                        {successMessage && <p className='success'>{successMessage}</p>} 
+                        <div className='botao'>
+                            <button type='submit' className='b2'>Enviar</button>
+                        </div>
+                    </form>
                 </div>
                 <div className='bem-vinda'>
-                    <h1 className='h1'>Esqueceu sua senha ?</h1>
+                    <h1 className='h1'>Esqueceu sua senha?</h1>
                 </div>
             </div>
         </div>
-    )
+    );
 }

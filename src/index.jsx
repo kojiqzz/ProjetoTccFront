@@ -7,6 +7,8 @@ import LoginPage from './pages/login';
 import RegisterPage from './pages/cadastro';
 import RedefinicaoSenha from './pages/redefinicaoSenha';
 import Servicos from './pages/serviços';
+import CodigoDeRedefinição from './pages/codigoDeRefinicao';
+import RedefinicaoNovaSenha from './pages/novaSenha';
 
 
 
@@ -20,6 +22,8 @@ root.render(
           <Route path='/cadastro' element={<RegisterPage/>} />
           <Route path='/redefinicaoSenha' element={<RedefinicaoSenha/>} />
           <Route path='/servicos' element={<Servicos/>} />
+          <Route path='/codigoRedefinicao' element={<CodigoDeRedefinição/>}/>
+          <Route path='/novaSenha' element={<RedefinicaoNovaSenha/>}/>
         </Routes>
     </BrowserRouter>
   </React.StrictMode>
