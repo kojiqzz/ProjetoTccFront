@@ -185,6 +185,7 @@ export default function Servicos() {
                     />
                 ))}
             </div>
+            
             {modalAberto && (
                 <div className="modal-overlay">
                     <div className="modal-content">

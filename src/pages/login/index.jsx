@@ -41,7 +41,7 @@ export default function LoginPage() {
                     <h1>Login</h1>
                     <div className='inp'>
                         <div className='in1'>
-                            <img className='img' src={perfil} alt="" />
+                            <img className='img1' src={perfil} alt="" />
                             <input 
                             type="text" 
                             placeholder='E-mail'

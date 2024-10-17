@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import emailIcon from '../../assets/images/email.webp';
 import axios from 'axios';
 
@@ -15,15 +15,17 @@ export default function RedefinicaoSenha() {
         setSuccessMessage(''); 
     };
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const url = 'http://localhost:5001/verificar-email/';
-            const response = await axios.post(url, emailInput ); 
+            const url = 'http://localhost:5001/verificar-email2';
+            const response = await axios.post(url, { email: emailInput });
 
             if (response.data.existe) {
-                setSuccessMessage('Email encontrado! Um link de redefinição foi enviado.');
+                navigate('/codigoRedefinicao');
             } else {
                 setErrorMessage('Email não encontrado. Verifique e tente novamente.');
             }
@@ -36,12 +38,12 @@ export default function RedefinicaoSenha() {
     return (
         <div className='div2'>
             <div className='login'>
-                <div className='informaçoes'>
+                <div className='informacoes'>
                     <h1>Redefinição de Senha</h1>
                     <p>Insira seu email para redefinição de senha</p>
                     <form onSubmit={handleSubmit}>
-                        <div className='inp'>
-                            <div className='in1'>
+                        <div className='input'>
+                            <div className='inp1'>
                                 <img src={emailIcon} alt="Ícone de Email" />
                                 <input
                                     type="text"
@@ -52,8 +54,7 @@ export default function RedefinicaoSenha() {
                             </div>
                         </div>
                         {errorMessage && <p className='error'>{errorMessage}</p>}
-                        {successMessage && <p className='success'>{successMessage}</p>} 
-                        <div className='botao'>
+                        <div className='button'>
                             <button type='submit' className='b2'>Enviar</button>
                         </div>
                     </form>
