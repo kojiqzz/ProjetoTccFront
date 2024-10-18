@@ -1,12 +1,22 @@
 import './index.scss';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function CodigoDeRedefinição() {
     const [code, setCode] = useState(['', '', '', '', '', '']);
+    const [codigoEnviado, setCodigoEnviado] = useState(null); // Armazena o código enviado
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Aqui você pode buscar o código enviado, por exemplo, armazenando em localStorage
+        const codigo = localStorage.getItem('codigoEnviado'); // Supondo que você tenha armazenado o código enviado no localStorage
+        if (codigo) {
+            setCodigoEnviado(codigo);
+        }
+    }, []);
 
     const handleChange = (index, value) => {
-
         if (!/^\d?$/.test(value)) {
             return; 
         }
@@ -39,6 +49,15 @@ export default function CodigoDeRedefinição() {
         }
     };
 
+    const handleConfirm = async () => {
+        const completeCode = code.join('');
+        if (completeCode === codigoEnviado) {
+            navigate('/novaSenha');
+        } else {
+            alert('Código incorreto. Tente novamente.'); 
+        }
+    };
+
     return (
         <div className='codigo'>
             <div className='login'>
@@ -61,7 +80,7 @@ export default function CodigoDeRedefinição() {
                     </div>
 
                     <div className='botao'> 
-                        <Link className='b2'>Confirmar</Link>
+                        <button onClick={handleConfirm} className='b2'>Confirmar</button>
                     </div>             
                 </div>
             </div>

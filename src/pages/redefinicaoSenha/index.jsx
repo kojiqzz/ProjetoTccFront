@@ -25,6 +25,8 @@ export default function RedefinicaoSenha() {
             const response = await axios.post(url, { email: emailInput });
 
             if (response.data.existe) {
+                localStorage.setItem('emailRedefinicao', emailInput);
+                localStorage.setItem('codigoEnviado', response.data.codigo);
                 navigate('/codigoRedefinicao');
             } else {
                 setErrorMessage('Email não encontrado. Verifique e tente novamente.');
