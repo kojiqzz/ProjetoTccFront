@@ -9,9 +9,12 @@ import cabelo4 from '../../assets/images/cabelo5.avif'
 import cabelo5 from '../../assets/images/escova.webp'
 import { Link } from 'react-router-dom'
 import { GoogleMap, useJsApiLoader , Marker} from '@react-google-maps/api';
+import { useState, useEffect } from 'react';
 
 
 export default function HomePage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyAzC_kDPsUhwFwZ0E7t2SOvRyK5Y8YVDE8"
@@ -22,6 +25,25 @@ export default function HomePage() {
         lng: -46.70840936899394 
     }
 
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+        
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
+
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = 'hidden'; 
+        } else {
+            document.body.style.overflow = 'unset'; 
+        }
+        return () => {
+            document.body.style.overflow = 'unset'; 
+        };
+    }, [isModalOpen]);
+
     return (
         <div className='div'>
             <div className='header'>
@@ -31,7 +53,7 @@ export default function HomePage() {
                 <Link to='/servicos' className='Link'>agendar</Link>
                 <Link className='Link'>contato</Link>
                 <Link className='Link'>agendamentos</Link>
-                <Link to='/'><img className='perfil' src={perfil} alt="" /></Link>
+                <Link onClick={openModal}><img className='perfil' src={perfil} alt="" /></Link>
                 
             </div>
             <div className='vitin-do-capa'>
@@ -125,6 +147,13 @@ export default function HomePage() {
                     </GoogleMap>
                 ) : null} {}
             </div>
+            {isModalOpen && (
+                <div className='modal'>
+                    <div className='modal-content'>
+                    <span className='close' onClick={closeModal}>&times;</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

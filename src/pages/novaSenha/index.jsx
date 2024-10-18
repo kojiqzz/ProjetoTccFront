@@ -26,7 +26,7 @@ export default function RedefinicaoNovaSenha() {
 
         try {
             const email = localStorage.getItem('emailRedefinicao'); 
-            const response = await axios.post('http://localhost:5001/redefinir-senha', { email, novaSenha });
+            const response = await axios.post('http://localhost:5001/redefinir-senha', { novaSenha, email });
 
             if (response.data.success) {
                 setModalAberto(true) 
@@ -38,7 +38,7 @@ export default function RedefinicaoNovaSenha() {
     };
 
     const voltarLogin = () => {
-        navigate('/login')
+        navigate('/')
     };
 
     return (

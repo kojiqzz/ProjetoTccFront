@@ -9,7 +9,7 @@ import RedefinicaoSenha from './pages/redefinicaoSenha';
 import Servicos from './pages/serviços';
 import CodigoDeRedefinição from './pages/codigoDeRefinicao';
 import RedefinicaoNovaSenha from './pages/novaSenha';
-
+import configurarConta from './pages/configConta';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,6 +24,7 @@ root.render(
           <Route path='/servicos' element={<Servicos/>} />
           <Route path='/codigoRedefinicao' element={<CodigoDeRedefinição/>}/>
           <Route path='/novaSenha' element={<RedefinicaoNovaSenha/>}/>
+          <Route path='/configConta' element={<configurarConta/>}/>
         </Routes>
     </BrowserRouter>
   </React.StrictMode>

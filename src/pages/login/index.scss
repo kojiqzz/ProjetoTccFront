@@ -25,7 +25,7 @@
             h1{
                 font-size: 8dvh;
                 text-align: center;
-                margin-top: 3dvh;
+                margin-top: 2.2dvh;
                 font-family: "Inter", sans-serif;
                 font-weight: 600;
                 color: #5c5c5c;
@@ -34,7 +34,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items:center;
-                margin-top: 6dvh;
+                margin-top: 4.6dvh;
                 gap: 5dvh;
                 margin-bottom: 2dvh;
                 .in1 {
@@ -107,6 +107,19 @@
                 color: #8a8989;
                 font-size: 2dvh;
                 text-decoration: none;
+            }
+            .error-message{
+                font-family: "Inter", sans-serif;
+                font-weight: 500;
+                color: rgb(189, 36, 9);
+                margin-top: 2dvh;
+                display: flex;
+                justify-content: center;
+                img{
+                    width: 2dvh;
+                    height: 2dvh;
+                    margin-right: 1dvh;
+                }
             }
             .botao{
                 display: flex;

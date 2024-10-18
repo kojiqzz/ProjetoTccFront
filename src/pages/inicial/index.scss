@@ -565,6 +565,41 @@
         }
         
     }
+    .modal {
+        display: flex;
+        position: fixed;
+        z-index: 1000;
+        width: 100%; 
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); 
+        overflow: auto;    
+        .modal-content {
+            background-color: #494A64;
+            position: absolute; 
+            top: 12%; 
+            left: 70%; 
+            padding: 20px;
+            height: 29dvh; 
+            width: 35dvh; 
+            max-width: 500px;
+            border-radius: 2.5dvh;
+            .close {
+                color: #aaa;
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+    
+                &:hover {
+                    color: black;
+                }
+            }
+        
+        }
+    }
+    
     
 }
 

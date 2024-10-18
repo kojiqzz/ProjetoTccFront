@@ -5,6 +5,7 @@ import olhofechado from '../../assets/images/olho.png';
 import { Link } from 'react-router-dom';
 import perfil from '../../assets/images/email.webp';
 import { useState } from 'react';
+import exclamacao from '../../assets/images/exclamation.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +13,7 @@ export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [mensagemErro, setMensagemErro] = useState('');
 
 
     const navigate = useNavigate()
@@ -27,12 +29,16 @@ export default function LoginPage() {
 
         
         if (resp.data.erro != undefined) {
-            alert(resp.data.erro)
+            setMensagemErro('E-mail ou senha incorretos. Verifique e tente novamente.');
+            return;
         } else {
             localStorage.setItem('USUARIO', resp.data.token)
             navigate('/inicio')
         }
     }
+    const limparMensagemErro = () => {
+        setMensagemErro('');
+    };
 
     return (
         <div className='div2'>
@@ -47,6 +53,7 @@ export default function LoginPage() {
                             placeholder='E-mail'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            onClick={limparMensagemErro}
                             />
                         </div>
                         <div className='in2'>
@@ -55,7 +62,9 @@ export default function LoginPage() {
                             type={showPassword ? 'text' : 'password'} 
                             placeholder='senha' 
                             value={senha}
-                            onChange={(e) => setSenha(e.target.value)}/>
+                            onChange={(e) => setSenha(e.target.value)}
+                            onClick={limparMensagemErro}
+                            />
                             <img 
                                 className='password' 
                                 src={showPassword ? olho : olhofechado} 
@@ -64,7 +73,8 @@ export default function LoginPage() {
                             />
                         </div>
                     </div>    
-                    <Link className='senha' to='/redefinicaoSenha'>esqueceu sua senha?</Link>   
+                    <Link className='senha' to='/redefinicaoSenha'>esqueceu sua senha?</Link>  
+                    {mensagemErro && <div className='error-message'><img src={exclamacao} alt="" />{mensagemErro}</div>} 
                     <div className='botao'> 
                         <Link to='/cadastro' className='b1'>cadastrar-se</Link>
                         <Link  className='b2' onClick={entrar} >entrar</Link>
