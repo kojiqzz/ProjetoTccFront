@@ -19,6 +19,7 @@ export default function RegisterPage() {
     const [senha, setSenha] = useState('');
     const [confirmSenha, setConfirmSenha] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [showpassword, setShowpassword] = useState(false);
     const [mensagemErro, setMensagemErro] = useState('');
     const [mensagemErroSenha, setMensagemErroSenha] = useState('');
     const [modalAberto, setModalAberto] = useState(false);
@@ -165,7 +166,7 @@ export default function RegisterPage() {
                         <div className='in4'>
                             <img src={img2} alt="" />
                             <input 
-                                type={showPassword ? 'text' : 'password'}
+                                type={showpassword ? 'text' : 'password'}
                                 placeholder='confirmar senha'
                                 value={confirmSenha}
                                 onChange={e => setConfirmSenha(e.target.value)}
@@ -173,9 +174,9 @@ export default function RegisterPage() {
                             />
                             <img 
                                 className='password' 
-                                src={showPassword ? olho : olhofechado} 
+                                src={showpassword ? olho : olhofechado} 
                                 alt="" 
-                                onClick={() => setShowPassword(!showPassword)} 
+                                onClick={() => setShowpassword(!showpassword)} 
                             />
                         </div>
                         {mensagemErro && <div className='error-message'><img src={exclamacao} alt="" />{mensagemErro}</div>}
