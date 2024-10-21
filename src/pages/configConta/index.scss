@@ -1,0 +1,35 @@
+.config{
+    background-color: #fff ;
+    height: 100dvh; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .foto-cliente{
+        border: #969696 solid 2px ;
+        border-radius: 2dvh;
+        display: flex;
+        justify-content: baseline;
+        width: 70%;
+        height: 30dvh;
+        margin-top: 5dvh;
+        .texto-foto{
+            .alterar{
+                margin: 3dvh;
+            }     
+            .carregar-text{
+                margin-left: 3dvh;
+            }       
+
+        }
+        
+        .icone{
+            img{
+                height: 8.7dvh;
+                width: 8.7dvh;
+                margin-left: 46dvh;
+                margin-top: 4.7dvh;
+            }
+            
+        }
+    }
+}
