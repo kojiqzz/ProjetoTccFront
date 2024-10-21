@@ -24,6 +24,7 @@ export default function LoginPage() {
             "senha": senha
         }
 
+
         const url = `http://localhost:5001/entrar/`
         let resp = await axios.post(url, usuario)
 
@@ -36,6 +37,8 @@ export default function LoginPage() {
             localStorage.setItem('USUARIO_ID', resp.data.id);
             navigate('/inicio')
         }
+
+        
     }
     const limparMensagemErro = () => {
         setMensagemErro('');
@@ -78,7 +81,7 @@ export default function LoginPage() {
                     {mensagemErro && <div className='error-message'><img src={exclamacao} alt="" />{mensagemErro}</div>} 
                     <div className='botao'> 
                         <Link to='/cadastro' className='b1'>cadastrar-se</Link>
-                        <Link  className='b2' onClick={entrar} >entrar</Link>
+                        <Link  className='b2' onClick={entrar}  >entrar</Link>
                     </div>
                 </div>
                 <div className='bem-vinda'>

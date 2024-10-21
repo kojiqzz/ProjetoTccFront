@@ -9,6 +9,7 @@
     position: relative; 
     display: flex;
     flex-direction: column
+    
     ;
 
     .header {
@@ -599,71 +600,5 @@
         }
     }
     
-    
-}
 
-
-
-/*@media (max-width: 1200px) {
-    .header {
-        width: 90%;
-        height: 12vh;
-        flex-direction: column;
-    }
-    .header a {
-        font-size: 2.5vh;
-    }
-    .botao h1 {
-        font-size: 8vh;
-    }
-}
-
-@media (max-width: 992px) {
-    .vitin-do-capa .img2 {
-        height: 60vh;
-    }
-    .sobre h1 {
-        font-size: 7vh;
-    }
-    .cards {
-        flex-direction: column;
-    }
-    .servicoCard {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-    }
-    .header .lene, .header .perfil {
-        height: 5vh;
-        width: 5vh;
-    }
-    .botao h1 {
-        font-size: 6vh;
-    }
-    button {
-        font-size: 2.5vh;
-    }
-}
-
-@media (max-width: 480px) {
-    .header a {
-        font-size: 2vh;
-    }
-    .contato h1 {
-        font-size: 6vh;
-    }
-    .informacoes .visita, .informacoes .local {
-        font-size: 2.5vh;
-    }
-    .inputs .in1, .inputs .in2, .inputs .in3 {
-        font-size: 1.5vh;
-    }
-    button {
-        font-size: 2vh;
-    }
-}*/
-
+ }

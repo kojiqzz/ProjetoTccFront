@@ -20,8 +20,6 @@ export default function Servicos() {
     const [offsetHora, setOffsetHora] = useState(0);
     const [servicosSelecionados, setServicosSelecionados] = useState([]);
     const horasPorConjunto = 6;
-    
-    
 
     const servicosList = [
         { 'trabalho': 'Escova e Prancha', 'valor': '30,00' },
@@ -164,9 +162,8 @@ export default function Servicos() {
         });
     };
 
-    
     const finalizarAgendamento = async () => {
-        const clienteId = localStorage.getItem('USUARIO_ID')
+        const clienteId = localStorage.getItem('USUARIO_ID');
         const agendamento = {
             cliente_id: clienteId,
             trabalho: servicosSelecionados.map(s => s.trabalho).join(', '),
@@ -174,17 +171,19 @@ export default function Servicos() {
             dia: obterDias()[indiceDiaSelecionado]?.fullDate, 
             hora: horaSelecionada,
         };
-    
+
         console.log('Agendamento:', agendamento); 
-    
+
         try {
             const url = `http://localhost:5001/agendamentos`;
             let resp = await axios.post(url, agendamento);
             
             console.log('Resposta da API:', resp); 
-    
+
             if (resp.status === 201) {
                 alert('Agendamento realizado com sucesso!');
+                fecharModal();
+                setServicosSelecionados([]); // Limpa os serviços agendados após confirmação
             }
         } catch (error) {
             console.error('Erro ao agendar:', error);
@@ -196,27 +195,27 @@ export default function Servicos() {
     return (
         <div className='divmae'>
             <div className='ser'>
-            <div className='imgsev'>
-                <img src={servicos} alt="" />
-                <h1>serviços</h1>
-            </div>
-            <div className='sevicos'>
-                <div className='voltar'>
-                    <Link to='/inicio'>
-                        <img src={seta2} alt="" />
-                    </Link>
-                    <h1>voltar</h1>
+                <div className='imgsev'>
+                    <img src={servicos} alt="" />
+                    <h1>serviços</h1>
                 </div>
-                <Linha />
-                {servicosList.map((item, index) => (
-                    <Servico
-                        key={index}
-                        trabalho={item.trabalho}
-                        valor={item.valor}
-                        onAgendar={() => agendar(item.trabalho, item.valor)}
-                    />
-                ))}
-            </div>
+                <div className='sevicos'>
+                    <div className='voltar'>
+                        <Link to='/inicio'>
+                            <img src={seta2} alt="" />
+                        </Link>
+                        <h1>voltar</h1>
+                    </div>
+                    <Linha />
+                    {servicosList.map((item, index) => (
+                        <Servico
+                            key={index}
+                            trabalho={item.trabalho}
+                            valor={item.valor}
+                            onAgendar={() => agendar(item.trabalho, item.valor)}
+                        />
+                    ))}
+                </div>
             </div>
 
             {modalAberto && (
