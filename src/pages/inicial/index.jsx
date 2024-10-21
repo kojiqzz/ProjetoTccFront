@@ -40,7 +40,7 @@ export default function HomePage() {
             document.body.style.overflow = 'unset'; 
         }
         return () => {
-            document.body.style.overflow = 'unset'; 
+            document.body.style.overflow = 'unset';
         };
     }, [isModalOpen]);
 
@@ -52,7 +52,7 @@ export default function HomePage() {
                 <Link className='Link'>serviços</Link>
                 <Link to='/servicos' className='Link'>agendar</Link>
                 <Link className='Link'>contato</Link>
-                <Link className='Link'>agendamentos</Link>
+                <Link to='/agendamentosCliente' className='Link'>agendamentos</Link>
                 <Link onClick={openModal}><img className='perfil' src={perfil} alt="" /></Link>
                 
             </div>

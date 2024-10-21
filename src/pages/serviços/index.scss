@@ -20,61 +20,68 @@ body {
 }
 
 .divmae {
-    position: relative; 
-    .imgsev {
-        position: relative; 
-        img {
+    .ser {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+        .imgsev {
+            position: relative; 
             width: 100%;
-            
+    
+            img {
+                width: 100%; 
+                display: block; 
+            }
+    
+            h1 {
+                position: absolute; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%);
+                font-size: 13dvh;
+                color: #fff;
+                text-align: center; 
+                font-family: "Karla", sans-serif;
+                font-weight: 100;
+            }
         }
-        h1 {
-            position: absolute; 
-            top: 28%;
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            font-size: 13dvh;
-            color: #fff;
-            text-align: center; 
-            font-family: "Karla", sans-serif;
-            font-weight: 100;
+    
+        .sevicos {
+            position: relative;
+            width: 54%;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 1dvh; 
+
+    
+            .voltar {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 2dvh;
+                margin-top: 0; 
+                margin-left: 0;
+                
+                img {
+                    width: 6dvh;
+                    height: 6dvh;
+                    transition: transform 1s ease;
+    
+                    &:hover {
+                        transform: scale(1.1); 
+                    }
+                }
+    
+                h1 {
+                    font-size: 4dvh;
+                    font-family: "Hind Siliguri", sans-serif;
+                    font-weight: 600;
+                    margin-bottom: 0;
+                }
+            }
         }
     }
     
-    .sevicos {
-        position: absolute; 
-        left: 50%; 
-        top: 350%;
-        transform: translate(-50%, -50%);   
-        width: 54%;
-        height: 172dvh;
-        margin: 0; 
-        background-color: rgba(255, 255, 255,); 
-        border-radius: 1dvh;    
-    
-        .voltar{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 2dvh;
-            margin-top: 3dvh;
-            margin-left: 4dvh;
-            img{
-                width: 6dvh;
-                height: 6dvh;
-                transition: transform 1s ease;
-            }
-            img:hover {
-                transform: scale(1.1); 
-            }
-            h1{
-                font-size: 4dvh;
-                font-family: "Hind Siliguri", sans-serif;
-                font-weight: 600;
-                margin-bottom: 1dvh;
-            }
-        }
-        
-    }
     .modal-overlay {
         position: fixed;
         top: 0;

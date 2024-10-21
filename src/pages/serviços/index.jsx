@@ -6,6 +6,7 @@ import x from '../../assets/images/x.png';
 import { Link } from 'react-router-dom';
 import Servico from '../../components/serviços';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function Servicos() {
     const [modalAberto, setModalAberto] = useState(false);
@@ -19,6 +20,8 @@ export default function Servicos() {
     const [offsetHora, setOffsetHora] = useState(0);
     const [servicosSelecionados, setServicosSelecionados] = useState([]);
     const horasPorConjunto = 6;
+    
+    
 
     const servicosList = [
         { 'trabalho': 'Escova e Prancha', 'valor': '30,00' },
@@ -60,7 +63,7 @@ export default function Servicos() {
         setModalAdicionarServicoAberto(false);
     };
 
-    const confirmarSelecao = () => {
+    const confirmarSelecao = async () => {
         const checkboxes = document.querySelectorAll('.adi-sev input[type="checkbox"]');
         const novosServicosSelecionados = [];
 
@@ -98,6 +101,7 @@ export default function Servicos() {
             dias.push({
                 dia: nomeDia,
                 data: data.getDate(),
+                fullDate: data.toISOString().split('T')[0], 
                 disabled: isDisabled
             });
         }
@@ -160,10 +164,38 @@ export default function Servicos() {
         });
     };
 
+    
+    const finalizarAgendamento = async () => {
+        const clienteId = localStorage.getItem('USUARIO_ID')
+        const agendamento = {
+            cliente_id: clienteId,
+            trabalho: servicosSelecionados.map(s => s.trabalho).join(', '),
+            valor: servicosSelecionados.reduce((total, s) => total + parseFloat(s.valor.replace(',', '.')), 0).toFixed(2),
+            dia: obterDias()[indiceDiaSelecionado]?.fullDate, 
+            hora: horaSelecionada,
+        };
+    
+        console.log('Agendamento:', agendamento); 
+    
+        try {
+            const url = `http://localhost:5001/agendamentos`;
+            let resp = await axios.post(url, agendamento);
+            
+            console.log('Resposta da API:', resp); 
+    
+            if (resp.status === 201) {
+                alert('Agendamento realizado com sucesso!');
+            }
+        } catch (error) {
+            console.error('Erro ao agendar:', error);
+        }
+    };
+
     const Linha = () => <div className="linha"></div>;
 
     return (
         <div className='divmae'>
+            <div className='ser'>
             <div className='imgsev'>
                 <img src={servicos} alt="" />
                 <h1>serviços</h1>
@@ -185,7 +217,8 @@ export default function Servicos() {
                     />
                 ))}
             </div>
-            
+            </div>
+
             {modalAberto && (
                 <div className="modal-overlay">
                     <div className="modal-content">
@@ -277,7 +310,7 @@ export default function Servicos() {
                                 <p className='p1'>Total :</p>
                                 <p className='p2'>R$ {servicosSelecionados.reduce((total, s) => total + parseFloat(s.valor.replace(',', '.')), 0).toFixed(2)}</p>
                             </div>
-                            <button>Agendar</button>
+                            <button onClick={finalizarAgendamento}>Agendar</button>
                         </div>
                     </div>
                 </div>

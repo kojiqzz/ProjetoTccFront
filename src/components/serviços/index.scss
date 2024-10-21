@@ -1,52 +1,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap');
 
-.informacoes{
-            
-    .info{
-    gap: 17dvh;
+.informacoes {
+  .info {
+    gap: 5vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    .trabalho{
-        font-family: "Karla", sans-serif;
-        font-weight: 700;
-        color: #5E1481;
-        width: 34dvh;
-        font-size: 2.4dvh;
+
+    .trabalho {
+      font-family: "Karla", sans-serif;
+      font-weight: 700;
+      color: #5E1481;
+      width: 30vw; 
+      font-size: 1.6vw; 
+      margin-left: 1vw;
     }
-    .valor{
-        font-family: "Karla", sans-serif;
-        font-weight: 700;
-        font-size: 2.4dvh;
+
+    .valor {
+      font-family: "Karla", sans-serif;
+      font-weight: 700;
+      font-size: 1.6vw; 
     }
-    .agenda{
-        text-decoration: none;
-        color: #fff;
-        background-color: #7C57B8;
-        font-family: "Roboto", sans-serif;
-        font-weight: 400;
-        font-size: 2.3dvh;
-        width: 20dvh;
-        height: 5dvh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 1dvh;
-        transition: transform 1s ease;
-        border: none;
+
+    .agenda {
+      text-decoration: none;
+      color: #fff;
+      background-color: #7C57B8;
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-size: 1.5vw; 
+      width: 12vw; 
+      height: 3vw; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0.8vw; 
+      transition: transform 0.5s ease;
+      border: none;
+      margin-right  : 2vw;
     }
+
     .agenda:hover {
-        transform: scale(1.1); 
+      transform: scale(1.1);
     }
-    }
-    .linha{
-        width: 90%;
-    }
-    
+  }
+
+  .linha {
+    width: 90%; 
+  }
 }
 
 
+@media (max-width: 1024px) {
+  .informacoes {
+    .info {
+      flex-direction: column; 
+      align-items: flex-start; 
+      gap: 3vw;
 
+      .trabalho, .valor {
+        width: 100%; 
+        font-size: 2.5vw; 
+      }
 
+      .agenda {
+        width: 20vw;
+        height: 5vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .informacoes {
+    .info {
+      .trabalho, .valor {
+        font-size: 3vw;
+      }
+
+      .agenda {
+        width: 25vw;
+        height: 6vw;
+        font-size: 2.5vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .informacoes {  
+    .info {
+      .trabalho, .valor {
+        font-size: 3vw; 
+      }
+
+      .agenda {
+        width: 30vw;
+        height: 7vw;
+        font-size: 3vw;
+      }
+    }
+  }
+}

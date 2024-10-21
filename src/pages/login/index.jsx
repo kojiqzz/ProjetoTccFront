@@ -33,6 +33,7 @@ export default function LoginPage() {
             return;
         } else {
             localStorage.setItem('USUARIO', resp.data.token)
+            localStorage.setItem('USUARIO_ID', resp.data.id);
             navigate('/inicio')
         }
     }

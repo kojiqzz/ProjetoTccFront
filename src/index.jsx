@@ -9,7 +9,8 @@ import RedefinicaoSenha from './pages/redefinicaoSenha';
 import Servicos from './pages/serviços';
 import CodigoDeRedefinição from './pages/codigoDeRefinicao';
 import RedefinicaoNovaSenha from './pages/novaSenha';
-import configurarConta from './pages/configConta';
+import ConfigurarConta from './pages/configConta';
+import AgendamentosCliente from './pages/agendamentoCliente';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,7 +25,8 @@ root.render(
           <Route path='/servicos' element={<Servicos/>} />
           <Route path='/codigoRedefinicao' element={<CodigoDeRedefinição/>}/>
           <Route path='/novaSenha' element={<RedefinicaoNovaSenha/>}/>
-          <Route path='/configConta' element={<configurarConta/>}/>
+          <Route path='/ConfigConta' element={<ConfigurarConta/>}/>
+          <Route path='/AgendamentosCliente' element={<AgendamentosCliente/>}/>
         </Routes>
     </BrowserRouter>
   </React.StrictMode>

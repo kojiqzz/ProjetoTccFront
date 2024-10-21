@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+.div-mae {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .agenda {
+        display: flex; 
+        background-color: aliceblue;
+        width: 96%;
+        height: 90dvh;
+        margin-top: 5dvh;
+        border-radius: 2dvh;
+        box-shadow: 0 8px 150px rgba(0, 0, 0, 0.3);
+        justify-content: center;
+        .agenda1 {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            .my-agenda {
+                margin: 3dvh;
+                font-family: Roboto;
+                font-weight: 600;
+            }
+
+            .card-info {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+                height: 20dvh;
+                width: 57dvh;
+                border-radius: 2dvh;
+                display:flex;
+                flex-direction: row;
+                .esq{
+                    display: flex;
+                    flex-direction: column;
+                    width: 70%;
+                    .butao{
+                        display: flex;
+                        flex-direction: row;
+                        display: flex;
+                        gap: 1dvh;
+                        margin-top: 4dvh;
+                        .b1{
+                            margin-left: 4dvh;
+                        }
+                        button{
+                            height: 3dvh;
+                            width: 10dvh;
+                            border-radius: 7dvh;
+                            background-color: #7C57B8;
+                            border: none;
+                            color: #fff;
+                            font-size: 1.7dvh;
+                            box-shadow: 0 8px 15px rgba(0, 26, 255, 0.3);
+                            font-family: "Roboto", sans-serif;
+                            font-weight: 600;
+                            transition: transform 1s ease;
+                        }
+                        button:hover {
+                            transform: scale(1.09); 
+                        }
+                    }
+                    .confirma{
+                        font-family: Roboto;
+                        font-weight: 400;
+                        background-color: #14AE61;
+                        width: 14dvh;
+                        text-align: center;
+                        color: #fff;
+                        border-radius: 2dvh;
+                        margin-left: 4dvh;
+                        margin-top: 2dvh;
+                        font-size: 2.2dvh;
+                    }
+                    .serviço{
+                        font-family: Roboto;
+                        font-weight: 500;
+                        font-size: 2.5dvh;
+                        margin-left: 4dvh;
+                        margin-top: 3dvh;
+                    }
+                }
+                .dir{
+                    display: flex;
+                    align-items: center;
+                    text-align: center;
+                    margin-left: 5dvh;
+                    .ps{
+                        
+                        .p1{
+                            font-family: "Roboto", sans-serif;
+                            font-weight: 600;
+                            font-size: 2.2dvh;
+                            margin-bottom: 1dvh;
+
+                        }
+                        .p2{
+                            font-family: "Roboto", sans-serif;
+                            font-weight: 600;
+                            font-size: 2.2dvh;
+                        }
+                        .p3{
+                            font-family: "Roboto", sans-serif;
+                            font-weight: 600;
+                            font-size: 2.2dvh;
+                            margin-top: 1dvh;
+                        }
+                    }
+                }
+                .divisao2 {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: black;
+                    height: 95%;
+                    width: 1px;
+                    margin-top: 0.6dvh;
+                }
+            }
+        }}}
+        
